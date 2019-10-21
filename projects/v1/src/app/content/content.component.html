@@ -1,0 +1,138 @@
+<section>
+  <div class="pb-5 pt-5 container-md container-fluid">
+    <div class="row">
+      <div class="col-md-4 mb-4 pt-5">
+        <div class="sticky-top pt-4">
+          <ng-container *ngIf="isFetchingDepartments; else filterTemplate">
+            <app-loader [count]="[1]"></app-loader>
+          </ng-container>
+          <ng-template #filterTemplate>
+            <!-- Search field -->
+            <form
+              class="input-grp position-relative"
+              (submit)="search($event, inputSearch.value)"
+            >
+              <input
+                type="text"
+                placeholder="Search..."
+                class="d-block w-100 pl-3 pr-5"
+                #inputSearch
+              />
+              <button
+                type="submit"
+                class="btn position-absolute btn-link link-no-hover"
+              >
+                <i class="fas fa-search text-muted"></i>
+              </button>
+            </form>
+            <!-- Select for Types -->
+            <div class="mt-3 d-md-none d-sm-block">
+              <select
+                class="custom-select"
+                (change)="filterByType($event.target.value)"
+              >
+                <option [value]="type.value" *ngFor="let type of types">{{
+                  type.text
+                }}</option>
+              </select>
+            </div>
+            <!-- Select for departments -->
+            <div class="mt-3 d-sm-block d-md-none mb-5 pb-5">
+              <select
+                class="custom-select"
+                (change)="filterByDepartment($event.target.value)"
+              >
+                <option value="">All Departments</option>
+                <option
+                  [value]="department.id"
+                  *ngFor="let department of departments"
+                  >{{ department.name }}</option
+                >
+              </select>
+            </div>
+            <!-- Radio for types -->
+            <div class="mb-4 mt-5 d-md-block d-none">
+              <h5 class="font-size-14 font-weight-bold">Category</h5>
+              <ul class="list-unstyled">
+                <li class="position-relative" *ngFor="let type of types">
+                  <app-radio-button
+                    name="type"
+                    [selected]="!type.value"
+                    [value]="type.value"
+                    (valueChange)="filterByType($event)"
+                    [label]="type.text"
+                  ></app-radio-button>
+                </li>
+              </ul>
+            </div>
+            <!-- Radio for departments -->
+            <div class="mb-4 d-md-block d-none">
+              <h5 class="font-size-14 font-weight-bold">Discipline</h5>
+              <ul class="list-unstyled">
+                <li class="position-relative">
+                  <app-radio-button
+                    name="department"
+                    label="All"
+                    [selected]="true"
+                    (valueChange)="filterByDepartment($event)"
+                    value=""
+                  ></app-radio-button>
+                </li>
+                <li
+                  class="position-relative"
+                  *ngFor="let department of departments"
+                >
+                  <app-radio-button
+                    name="department"
+                    (valueChange)="filterByDepartment($event)"
+                    [label]="department.name"
+                    [value]="department.id"
+                  ></app-radio-button>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-md-8 z-index-lg pt-5" #resultPane>
+        <!-- Sorting -->
+        <div
+          class="text-right mb-n2 mt-n4 sort-panel"
+          *ngIf="!isEmpty && !isError"
+        >
+          <app-sort (valueChange)="filterAndSort($event)"></app-sort>
+        </div>
+        <!-- Results -->
+        <div class="pt-4">
+          <ng-container
+            *ngIf="isBusy || isFetchingDepartments; else resultTemplate"
+          >
+            <app-loader></app-loader>
+          </ng-container>
+          <ng-template #resultTemplate>
+            <div class="result-pane">
+              <app-document
+                *ngFor="let document of data; trackBy: trackDocument"
+                [document]="document"
+                [departments]="departments"
+                [types]="types"
+              ></app-document>
+              <app-empty *ngIf="isEmpty"></app-empty>
+              <app-error
+                (handleClick)="populateTable()"
+                *ngIf="isError"
+              ></app-error>
+            </div>
+            <div class="text-center mt-5" *ngIf="!isEmpty && !isError">
+              <app-pagination
+                [pagination]="pagination"
+                [size]="params.size"
+                (pageChange)="paginate($event)"
+              ></app-pagination>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
