@@ -1,0 +1,23 @@
+<div class="mt-5 d-flex justify-content-center" *ngIf="isNeeded()">
+  <ul class="pagination">
+    <li class="page-item">
+      <button
+        class="page-link text-secondary"
+        (click)="paginate(false)"
+        [class.disabled]="isFirstPage()"
+      >
+        &lt;&lt; Prev
+      </button>
+    </li>
+
+    <li class="page-item">
+      <button
+        class="page-link text-secondary"
+        (click)="paginate(true)"
+        [class.disabled]="isLastPage()"
+      >
+        Next &gt;&gt;
+      </button>
+    </li>
+  </ul>
+</div>

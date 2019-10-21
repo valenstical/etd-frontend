@@ -1,0 +1,11 @@
+<div class="radio-group d-inline-block position-relative pt-null pr-null ">
+  <input
+    [name]="name"
+    type="radio"
+    [value]="value"
+    [checked]="selected"
+    (change)="onChange()"
+    class="position-absolute w-100 h-100 bg-success"
+  />
+  <label>{{ label }}</label>
+</div>
