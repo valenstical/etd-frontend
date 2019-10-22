@@ -38,13 +38,14 @@ export class ContentComponent extends BaseDataComponent
   }
 
   ngOnInit(): void {
-    this.params.size = 20;
+    this.params.size = 10;
     this.registerSearchObservables("q");
     this.fetchDepartments();
   }
 
   ngAfterViewInit(): void {
     this.populateTable();
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy(): void {
