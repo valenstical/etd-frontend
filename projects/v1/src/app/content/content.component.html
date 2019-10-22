@@ -28,7 +28,7 @@
             <!-- Select for Types -->
             <div class="mt-3 d-md-none d-sm-block">
               <select
-                class="custom-select"
+                class="custom-select text-capitalize"
                 (change)="filterByType($event.target.value)"
               >
                 <option [value]="type.value" *ngFor="let type of types">{{
@@ -39,7 +39,7 @@
             <!-- Select for departments -->
             <div class="mt-3 d-sm-block d-md-none mb-5 pb-5">
               <select
-                class="custom-select"
+                class="custom-select text-capitalize"
                 (change)="filterByDepartment($event.target.value)"
               >
                 <option value="">All Departments</option>
