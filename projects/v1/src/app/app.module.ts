@@ -11,9 +11,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { RadioButtonComponent } from "./reusable/radiobutton/radio-button.component";
 import { SortComponent } from "./reusable/sort/sort.component";
 import { PaginationComponent } from "./reusable/pagination/pagination.component";
-import { LoaderComponent } from './reusable/loader/loader.component';
-import { EmptyComponent } from './reusable/empty/empty.component';
-import { ErrorComponent } from './reusable/error/error.component';
+import { LoaderComponent } from "./reusable/loader/loader.component";
+import { EmptyComponent } from "./reusable/empty/empty.component";
+import { ErrorComponent } from "./reusable/error/error.component";
 
 @NgModule({
   declarations: [

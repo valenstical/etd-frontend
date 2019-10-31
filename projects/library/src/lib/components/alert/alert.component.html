@@ -1,0 +1,6 @@
+<div class="alert alert-{{ type }} mb-4">
+  <strong class="d-block mb-2" *ngIf="title">{{ title }}</strong>
+  <ul class="d-block mt-0 mb-0 list-unstyled">
+    <li *ngFor="let item of message" class="mb-2">{{ item }}</li>
+  </ul>
+</div>

@@ -1,0 +1,14 @@
+<div class="text-right btn-grouped ml-n4 mr-n4 pr-4 pl-4">
+  <button
+    type="submit"
+    [disabled]="disabled"
+    class="btn-brand mt-4 btn-curved pt-2 pb-2 text-sm pl-4 pr-4"
+    [class.w-100]="maxWidth"
+  >
+    {{ text }}
+    <div
+      class="spinner-border spinner-border-sm position-relative"
+      *ngIf="showLoader"
+    ></div>
+  </button>
+</div>

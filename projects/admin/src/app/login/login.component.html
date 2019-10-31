@@ -1,0 +1,49 @@
+<main class="min-vh-100 bg-grey">
+  <aside class="right-panel hidePanel">
+    <section class="right-body">
+      <div class="container-fluid">
+        <form
+          role="form"
+          (submit)="handleLogin()"
+          [formGroup]="formGroup"
+          class="form pl-4 position-relative pr-4 pt-5 form-box pb-5 max-width-500"
+        >
+          <img
+            src="/assets/images/icon.png"
+            class="ml-auto d-block mr-auto"
+            width="60"
+          />
+          <h6 class="mb-5 text-center font-weight-bold" #topElement>
+            Electronic Thesis and Dissertations
+          </h6>
+          <lib-alert
+            [type]="response.type"
+            [title]="response.title"
+            [message]="response.message"
+            *ngIf="!hideAlert"
+          ></lib-alert>
+          <app-input
+            title="Email: "
+            type="email"
+            autocomplete="on"
+            invalidText="Please enter a valid email address"
+            name="email"
+            [formGroup]="formGroup"
+          ></app-input>
+          <app-input
+            title="Password: "
+            type="password"
+            invalidText="Password is required"
+            name="password"
+            [formGroup]="formGroup"
+          ></app-input>
+          <app-button
+            [disabled]="isBusy || formGroup.invalid"
+            [showLoader]="isBusy"
+            text="Login"
+          ></app-button>
+        </form>
+      </div>
+    </section>
+  </aside>
+</main>

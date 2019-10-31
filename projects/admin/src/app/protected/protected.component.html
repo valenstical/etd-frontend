@@ -1,0 +1,12 @@
+<main class="min-vh-100 bg-grey" [class.hidden-menu]="store.isMenuShown()">
+  <app-navigation></app-navigation>
+  <aside class="right-panel">
+    <app-header></app-header>
+    <section class="right-body">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </aside>
+  <div class="backdrop" (click)="store.toggleMenu()"></div>
+</main>

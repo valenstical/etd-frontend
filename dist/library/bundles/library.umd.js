@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/router'), require('@angular/common/http'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('library', ['exports', '@angular/core', 'rxjs', '@angular/router', '@angular/common/http', 'rxjs/operators'], factory) :
-    (global = global || self, factory(global.library = {}, global.ng.core, global.rxjs, global.ng.router, global.ng.common.http, global.rxjs.operators));
-}(this, function (exports, core, rxjs, router, http, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/router'), require('@angular/common/http'), require('rxjs/operators'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('library', ['exports', '@angular/core', 'rxjs', '@angular/router', '@angular/common/http', 'rxjs/operators', '@angular/common'], factory) :
+    (global = global || self, factory(global.library = {}, global.ng.core, global.rxjs, global.ng.router, global.ng.common.http, global.rxjs.operators, global.ng.common));
+}(this, function (exports, core, rxjs, router, http, operators, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -840,6 +840,9 @@
             this.response.message = message;
             this.response.title = title;
             this.response.type = type;
+            if (this.topElement) {
+                scrollIntoView(this.topElement.nativeElement, true);
+            }
         };
         /**
          * @return {?}
@@ -861,6 +864,52 @@
         function (logic) {
             this.subscription.add(logic);
         };
+        /**
+         * @private
+         * @param {?} array
+         * @return {?}
+         */
+        BaseComponent.prototype.arrayValues = /**
+         * @private
+         * @param {?} array
+         * @return {?}
+         */
+        function (array) {
+            /** @type {?} */
+            var errorGroup = [];
+            if (Array.isArray(array)) {
+                array.forEach((/**
+                 * @param {?} element
+                 * @return {?}
+                 */
+                function (element) {
+                    errorGroup.push(Object.values(element));
+                }));
+            }
+            return errorGroup;
+        };
+        /**
+         * @protected
+         * @param {?} err
+         * @return {?}
+         */
+        BaseComponent.prototype.handleError = /**
+         * @protected
+         * @param {?} err
+         * @return {?}
+         */
+        function (err) {
+            this.toggleLoaders(false);
+            var _a = err.error, data = _a.data, message = _a.message;
+            data = this.arrayValues(data);
+            /** @type {?} */
+            var title = data.length === 0 ? "" : message;
+            message = title ? data : message;
+            this.showMessage(message, title, "danger");
+        };
+        BaseComponent.propDecorators = {
+            topElement: [{ type: core.ViewChild, args: ["topElement", { static: false },] }]
+        };
         return BaseComponent;
     }());
     if (false) {
@@ -879,6 +928,8 @@
         BaseComponent.prototype.hideAlert;
         /** @type {?} */
         BaseComponent.prototype.response;
+        /** @type {?} */
+        BaseComponent.prototype.topElement;
     }
 
     /**
@@ -1116,6 +1167,63 @@
         Dropdown.prototype.isOpen;
     }
 
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AlertComponent = /** @class */ (function () {
+        function AlertComponent() {
+            this.type = "warning";
+        }
+        /**
+         * @return {?}
+         */
+        AlertComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            this.message = Array.isArray(this.message) ? this.message : [this.message];
+        };
+        AlertComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: "lib-alert",
+                        template: "<div class=\"alert alert-{{ type }} mb-4\">\n  <strong class=\"d-block mb-2\" *ngIf=\"title\">{{ title }}</strong>\n  <ul class=\"d-block mt-0 mb-0 list-unstyled\">\n    <li *ngFor=\"let item of message\" class=\"mb-2\">{{ item }}</li>\n  </ul>\n</div>\n"
+                    }] }
+        ];
+        AlertComponent.propDecorators = {
+            type: [{ type: core.Input }],
+            title: [{ type: core.Input }],
+            message: [{ type: core.Input }]
+        };
+        return AlertComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        AlertComponent.prototype.type;
+        /** @type {?} */
+        AlertComponent.prototype.title;
+        /** @type {?} */
+        AlertComponent.prototype.message;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AlertModule = /** @class */ (function () {
+        function AlertModule() {
+        }
+        AlertModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [common.CommonModule],
+                        declarations: [AlertComponent],
+                        exports: [AlertComponent]
+                    },] }
+        ];
+        return AlertModule;
+    }());
+
+    exports.AlertModule = AlertModule;
     exports.AuthGuard = AuthGuard;
     exports.AuthService = AuthService;
     exports.BaseComponent = BaseComponent;
@@ -1129,6 +1237,7 @@
     exports.ScriptStore = ScriptStore;
     exports.scrollIntoView = scrollIntoView;
     exports.selectedFilter = selectedFilter;
+    exports.ɵb = AlertComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

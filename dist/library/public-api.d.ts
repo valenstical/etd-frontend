@@ -10,3 +10,4 @@ export * from "./lib/services/script-loader.service";
 export * from "./lib/helpers/base-component";
 export * from "./lib/helpers/base-data-component";
 export * from "./lib/helpers/dropdown";
+export * from "./lib/components/alert/alert.module";

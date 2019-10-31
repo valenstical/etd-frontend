@@ -1,8 +1,9 @@
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, HostListener } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, ViewChild, HostListener, Component, Input, NgModule } from '@angular/core';
 import { Subject, throwError, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -566,6 +567,9 @@ class BaseComponent {
         this.response.message = message;
         this.response.title = title;
         this.response.type = type;
+        if (this.topElement) {
+            scrollIntoView(this.topElement.nativeElement, true);
+        }
     }
     /**
      * @return {?}
@@ -580,7 +584,43 @@ class BaseComponent {
     addSubscription(logic) {
         this.subscription.add(logic);
     }
+    /**
+     * @private
+     * @param {?} array
+     * @return {?}
+     */
+    arrayValues(array) {
+        /** @type {?} */
+        const errorGroup = [];
+        if (Array.isArray(array)) {
+            array.forEach((/**
+             * @param {?} element
+             * @return {?}
+             */
+            (element) => {
+                errorGroup.push(Object.values(element));
+            }));
+        }
+        return errorGroup;
+    }
+    /**
+     * @protected
+     * @param {?} err
+     * @return {?}
+     */
+    handleError(err) {
+        this.toggleLoaders(false);
+        let { error: { data, message } } = err;
+        data = this.arrayValues(data);
+        /** @type {?} */
+        const title = data.length === 0 ? "" : message;
+        message = title ? data : message;
+        this.showMessage(message, title, "danger");
+    }
 }
+BaseComponent.propDecorators = {
+    topElement: [{ type: ViewChild, args: ["topElement", { static: false },] }]
+};
 if (false) {
     /**
      * @type {?}
@@ -597,6 +637,8 @@ if (false) {
     BaseComponent.prototype.hideAlert;
     /** @type {?} */
     BaseComponent.prototype.response;
+    /** @type {?} */
+    BaseComponent.prototype.topElement;
 }
 
 /**
@@ -779,11 +821,60 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class AlertComponent {
+    constructor() {
+        this.type = "warning";
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.message = Array.isArray(this.message) ? this.message : [this.message];
+    }
+}
+AlertComponent.decorators = [
+    { type: Component, args: [{
+                selector: "lib-alert",
+                template: "<div class=\"alert alert-{{ type }} mb-4\">\n  <strong class=\"d-block mb-2\" *ngIf=\"title\">{{ title }}</strong>\n  <ul class=\"d-block mt-0 mb-0 list-unstyled\">\n    <li *ngFor=\"let item of message\" class=\"mb-2\">{{ item }}</li>\n  </ul>\n</div>\n"
+            }] }
+];
+AlertComponent.propDecorators = {
+    type: [{ type: Input }],
+    title: [{ type: Input }],
+    message: [{ type: Input }]
+};
+if (false) {
+    /** @type {?} */
+    AlertComponent.prototype.type;
+    /** @type {?} */
+    AlertComponent.prototype.title;
+    /** @type {?} */
+    AlertComponent.prototype.message;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AlertModule {
+}
+AlertModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule],
+                declarations: [AlertComponent],
+                exports: [AlertComponent]
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AuthGuard, AuthService, BaseComponent, BaseDataComponent, CloudinaryWidget, Dropdown, HttpService, InterceptorService, PaystackWidget, ScriptLoaderService, ScriptStore, scrollIntoView, selectedFilter };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { AlertModule, AuthGuard, AuthService, BaseComponent, BaseDataComponent, CloudinaryWidget, Dropdown, HttpService, InterceptorService, PaystackWidget, ScriptLoaderService, ScriptStore, scrollIntoView, selectedFilter, AlertComponent as ɵb };
 //# sourceMappingURL=library.js.map
