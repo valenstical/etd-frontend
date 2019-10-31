@@ -1,0 +1,16 @@
+<div class="form-group ">
+  <label [for]="name">{{ title }}</label>
+  <input
+    [type]="type"
+    class="form-control"
+    [formControl]="formGroup.controls[name]"
+    [autocomplete]="autocomplete"
+    [id]="name"
+    [value]="formGroup.controls[name].value"
+  />
+  <span
+    class="error-text mt-1"
+    *ngIf="formGroup.controls[name].invalid && formGroup.controls[name].dirty"
+    >{{ invalidText }}</span
+  >
+</div>

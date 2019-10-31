@@ -1,4 +1,6 @@
 import { Subscription, TeardownLogic } from "rxjs";
+import { scrollIntoView } from "./utils";
+import { ElementRef, ViewChild } from "@angular/core";
 
 export class BaseComponent {
   private subscription = new Subscription();
@@ -12,6 +14,8 @@ export class BaseComponent {
     type: ""
   };
 
+  @ViewChild("topElement", { static: false }) topElement: ElementRef;
+
   protected toggleLoaders(value: boolean): void {
     this.isBusy = value;
     this.hideAlert = value;
@@ -20,6 +24,10 @@ export class BaseComponent {
     this.response.message = message;
     this.response.title = title;
     this.response.type = type;
+
+    if (this.topElement) {
+      scrollIntoView(this.topElement.nativeElement, true);
+    }
   }
 
   clearSubscription(): void {
@@ -28,5 +36,26 @@ export class BaseComponent {
 
   addSubscription(logic: TeardownLogic): void {
     this.subscription.add(logic);
+  }
+
+  private arrayValues(array: any): string | Array<string> {
+    const errorGroup = [];
+    if (Array.isArray(array)) {
+      array.forEach((element: any) => {
+        errorGroup.push(Object.values(element));
+      });
+    }
+    return errorGroup;
+  }
+
+  protected handleError(err: any): void {
+    this.toggleLoaders(false);
+    let {
+      error: { data, message }
+    } = err;
+    data = this.arrayValues(data);
+    const title = data.length === 0 ? "" : message;
+    message = title ? data : message;
+    this.showMessage(message, title, "danger");
   }
 }

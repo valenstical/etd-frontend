@@ -1,0 +1,42 @@
+<div class="form position-relative form-box p-4">
+  <div class="text-right btn-grouped mb-3" data-pg-collapsed>
+    <a
+      [routerLink]="['/departments', 'create']"
+      routerLinkActive="router-link-active"
+      class="btn btn-brand text-sm"
+      title="Add"
+    >
+      <i class="fas fa-plus"></i
+    ></a>
+  </div>
+  <table class="table" data-pg-collapsed>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th class="table">DEPARTMENT</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-pg-collapsed>
+        <th scope="row" class="align-middle font-weight-normal">3</th>
+        <td class="align-middle">Agricultural Extension</td>
+        <td class="align-middle td-actions">
+          <a
+            class="btn btn-action btn-warning mr-1 transition"
+            href="add-department.html"
+            title="Edit"
+            ><i class="fas fa-pencil-alt"></i
+          ></a>
+          <button
+            class="btn btn-action btn-danger transition"
+            title="Delete"
+            type="button"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,144 @@
+<div class="row">
+  <form class="col-md-8 offset-md-2">
+    <div class="form position-relative form-box mb-2 p-4">
+      <div class="ml-n4 mr-n4 pr-4 pl-4 text-center mt-4">
+        <div class="custom-file" data-pg-collapsed>
+          <input type="button" class="custom-file-input" />
+          <label class="custom-file-label text-sm" for="custom-file1"></label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="form pl-4 position-relative pr-4 pt-5 form-box pb-4 mb-2"
+      data-pg-collapsed
+    >
+      <div class="form-group">
+        <label for="email">Title:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          autocomplete="off"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Author(s):</label>
+        <input type="text" class="form-control" id="nhame" name="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Year Submitted:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="nahme"
+          name="name"
+          autocomplete="off"
+          max="9999"
+          min="1000"
+        />
+      </div>
+      <div class="form-group">
+        <label for="gender" class="d-block">Type of document</label>
+        <div class="custom-control custom-radio d-inline-block mr-5 mb-2">
+          <input
+            id="genderMixed"
+            name="type"
+            value="0"
+            type="radio"
+            class="custom-control-input"
+            checked
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="genderMixed"
+            >Theses</label
+          >
+        </div>
+        <div class="custom-control custom-radio d-inline-block mr-5 mb-2">
+          <input
+            id="genderMale"
+            name="type"
+            value="1"
+            type="radio"
+            class="custom-control-input"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="genderMale"
+            >Dissertation</label
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      class="form pl-4 position-relative pr-4 pt-5 form-box pb-4 mb-2"
+      data-pg-collapsed
+    >
+      <div class="form-group">
+        <label for="state">Department/Discipline</label>
+        <select class="form-control custom-select" name="state" id="state">
+          <option value="">-- Choose one --</option>
+          <option value="0">Abia</option>
+          <option value="1">Adamawa</option>
+          <option value="2">Akwa Ibom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="email">Degree (optional):</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nhame"
+          name="name"
+          autocomplete="on"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Advisors (optional):</label>
+        <input
+          type="number"
+          class="form-control"
+          id="nahme"
+          name="name"
+          autocomplete="on"
+        />
+      </div>
+    </div>
+    <div
+      class="form pl-4 position-relative pr-4 pt-5 form-box pb-4 mb-2"
+      data-pg-collapsed
+    >
+      <div class="form-group">
+        <label for="email">Abstract:</label>
+        <textarea
+          class="form-control textarea-lg"
+          id="details"
+          name="details"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="email">Tags/Keywords (optional):</label>
+        <input
+          type="number"
+          class="form-control"
+          id="nahme"
+          name="name"
+          autocomplete="on"
+        />
+      </div>
+    </div>
+    <div
+      class="text-right btn-grouped ml-n4 mr-n4 pr-4 pl-4 mb-5 mt-4"
+      data-pg-collapsed
+    >
+      <button
+        type="submit"
+        class="btn-brand btn-curved pt-2 pb-2 text-sm pl-4 pr-4 w-100"
+      >
+        Save
+        <div class="spinner-border"></div>
+      </button>
+    </div>
+  </form>
+</div>

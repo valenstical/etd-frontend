@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --port 4300",
-    "start:v1": "ng serve --port 4500",
+    "start:admin": "ng serve admin --port 4400",
     "build": "ng build",
     "lint": "ng lint",
     "git:commit": "git commit --amend --no-edit",
