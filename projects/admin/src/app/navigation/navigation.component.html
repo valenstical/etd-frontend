@@ -18,15 +18,19 @@
     </div>
     <ul class="fa-ul ">
       <li routerLinkActive="active">
-        <i class="fas fa-li transitio fa-file-pdf"></i>
+        <i class="fas fa-li transition fa-file-pdf"></i>
         <a routerLink="/documents" class="transition">Documents</a>
       </li>
       <li routerLinkActive="active">
-        <i class="fas fa-li transitio fa-hotel"></i>
+        <i class="fas fa-li transition fa-hotel"></i>
         <a routerLink="/departments" class="transition">Departments</a>
       </li>
+      <li routerLinkActive="active">
+        <i class="fas fa-li transition fa-external-link-alt"></i>
+        <a [href]="PUBLIC_SITE" target="_blank" class="transition">View Site</a>
+      </li>
       <li>
-        <i class="fas fa-li transitio fa-sign-in-alt"></i>
+        <i class="fas fa-li transition fa-sign-in-alt"></i>
         <a (click)="auth.logout()" class="transition cursor-pointer">Logout</a>
       </li>
     </ul>

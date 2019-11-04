@@ -1,49 +1,59 @@
-<div class="form position-relative form-box p-4" data-pg-collapsed>
-  <div class="text-right btn-grouped mb-3" data-pg-collapsed>
-    <a
-      [routerLink]="['/documents', 'create']"
-      routerLinkActive="router-link-active"
-      class="btn btn-brand text-sm"
-      title="Add"
-    >
-      <i class="fas fa-plus"></i
-    ></a>
-  </div>
-  <div class="table-responsive">
-    <table class="table" data-pg-collapsed>
+<ng-container *ngIf="isBusy; else resultTemplate">
+  <app-loader></app-loader>
+</ng-container>
+<ng-template #resultTemplate>
+  <div class="form position-relative form-box p-4">
+    <div class="text-right btn-grouped mb-3">
+      <a
+        [routerLink]="['/documents', 'create']"
+        class="btn btn-brand text-sm"
+        title="Add"
+        (click)="store.setDocument(dummyDocument)"
+      >
+        <i class="fas fa-plus"></i
+      ></a>
+    </div>
+
+    <table class="table">
       <thead>
         <tr>
           <th>#</th>
           <th>Title</th>
           <th>Author</th>
-          <th>Department</th>
           <th>Type</th>
           <th>Year</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr data-pg-collapsed>
-          <th scope="row" class="align-middle font-weight-normal">3</th>
-          <td class="align-middle">
-            The Levenberg-Marquardt algorithm using the Newton method for
-            optimization
+        <tr
+          *ngFor="let document of data; trackBy: trackDocument; let i = index"
+        >
+          <th scope="row" class="align-middle font-weight-normal">
+            {{ i + 1 }}
+          </th>
+
+          <td class="align-middle text-sentence">
+            {{ document.title }}
           </td>
-          <td class="align-middle">John Doe</td>
-          <td class="align-middle">Physics</td>
-          <td class="align-middle">Theses</td>
-          <td class="align-middle">2012</td>
-          <td class="align-middle td-actions" data-pg-collapsed>
+          <td class="align-middle text-sentence">{{ document.author }}</td>
+          <td class="align-middle text-sentence">
+            {{ DOCUMENT_TYPE[document.type] }}
+          </td>
+          <td class="align-middle">{{ document.submissionYear }}</td>
+          <td class="align-middle td-actions">
             <a
-              class="btn btn-action btn-warning transition "
-              href="add-department.html"
+              class="btn btn-action btn-warning mr-1 transition"
+              routerLink="/documents/edit/{{ document.id }}"
               title="Edit"
+              (click)="store.setDocument(document)"
               ><i class="fas fa-pencil-alt"></i
             ></a>
             <button
               class="btn btn-action btn-danger transition"
               title="Delete"
               type="button"
+              (click)="setSelectedDocument(document, i)"
             >
               <i class="fas fa-trash-alt"></i>
             </button>
@@ -52,4 +62,13 @@
       </tbody>
     </table>
   </div>
-</div>
+</ng-template>
+
+<app-modal
+  message="Are you sure you want to permanently delete the selected document?"
+  *ngIf="modal.show"
+  (onCancel)="modal.show = false"
+  (onClick)="deleteDocument()"
+  [showLoader]="modal.showLoader"
+  [invalidText]="modal.invalidText"
+></app-modal>

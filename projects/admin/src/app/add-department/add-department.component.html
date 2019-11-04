@@ -2,28 +2,27 @@
   <div class="col-md-8 offset-md-2">
     <form
       role="form"
+      (submit)="saveChanges()"
+      [formGroup]="formGroup"
       class="form pl-4 position-relative pr-4 pt-5  form-box pb-4"
-      data-pg-collapsed
     >
-      <div class="form-group" data-pg-collapsed>
-        <label for="email">Department Name:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          name="name"
-          autocomplete="off"
-        />
-      </div>
-      <div class="text-right btn-grouped ml-n4 mr-n4 pr-4 pl-4">
-        <button
-          type="submit"
-          class="btn-brand mt-4 btn-curved pt-2 pb-2 text-sm pl-4 pr-4"
-        >
-          Save
-          <div class="spinner-border"></div>
-        </button>
-      </div>
+      <lib-alert
+        [type]="response.type"
+        [title]="response.title"
+        [message]="response.message"
+        *ngIf="!hideAlert"
+      ></lib-alert>
+      <app-input
+        title="Department Name: "
+        name="name"
+        invalidText="Department name is required"
+        [formGroup]="formGroup"
+      ></app-input>
+      <app-button
+        [disabled]="isBusy || formGroup.invalid"
+        [showLoader]="isBusy"
+        text="Save Changes"
+      ></app-button>
     </form>
   </div>
 </div>

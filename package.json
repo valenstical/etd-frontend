@@ -9,7 +9,9 @@
     "git:commit": "git commit --amend --no-edit",
     "git:force": "git push -f",
     "git:add": "git add .",
-    "push": "npm run git:add & npm run git:commit & npm run git:force"
+    "push": "npm run git:add & npm run git:commit & npm run git:force",
+    "ng:library": "ng g library",
+    "ng:app": "ng g application"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,7 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "etd-library": "file:dist/etd-library",
     "library": "file:dist/library",
     "ngx-cacheable": "^1.2.5",
     "rxjs": "~6.4.0",

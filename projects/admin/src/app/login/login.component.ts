@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { BaseComponent, AuthService } from "library";
+import { StoreService } from "../services/store.service";
 
 @Component({
   selector: "app-login",
@@ -17,7 +18,8 @@ export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: StoreService
   ) {
     super();
   }
@@ -45,6 +47,7 @@ export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
             "success"
           );
           this.authService.setAuthenticatedUser(data);
+          this.store.setCollegeId(data.collegeId);
           this.router.navigateByUrl("/documents");
         },
         error => {

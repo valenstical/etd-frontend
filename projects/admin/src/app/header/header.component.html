@@ -1,14 +1,25 @@
 <header class="header">
   <div class="container-fluid">
-    <button
-      class="btn-menu btn btn-link"
-      type="button"
-      (click)="store.toggleMenu()"
-    >
-      <span></span>
-      <span class="mt-1 w-75"></span>
-      <span class="mt-1"></span>
-    </button>
+    <ng-container *ngIf="store.isShowBackButton(); else titleTemplate">
+      <button
+        class="btn-menu btn btn-link d-inline-block"
+        type="button"
+        (click)="goBack()"
+      >
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </ng-container>
+    <ng-template #titleTemplate>
+      <button
+        class="btn-menu btn btn-link"
+        type="button"
+        (click)="store.toggleMenu()"
+      >
+        <span></span>
+        <span class="mt-1 w-75"></span>
+        <span class="mt-1"></span>
+      </button>
+    </ng-template>
     <h1 class="mb-0 d-inline-block">{{ store.getTitle() }}</h1>
   </div>
 </header>

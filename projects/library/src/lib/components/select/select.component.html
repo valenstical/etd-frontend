@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label for="{{ title }}"
+    >{{ title }} <img *ngIf="showLoader && imgSrc" [src]="imgSrc" width="20"
+  /></label>
+  <select
+    class="form-control custom-select {{ className }}"
+    [formControl]="formGroup.controls[name]"
+    [value]="formGroup.controls[name].value"
+    (change)="handleChange(formGroup.controls[name].value)"
+    [attr.disabled]="disabled || showLoader ? 'true' : null"
+  >
+    <option value="">-- Choose one --</option>
+    <option *ngFor="let item of data" [value]="item[keyValue]">
+      {{ item[keyText] }}</option
+    >
+  </select>
+  <span
+    class="error-text mt-1"
+    *ngIf="formGroup.controls[name].invalid && formGroup.controls[name].dirty"
+    >{{ invalidText }}</span
+  >
+</div>

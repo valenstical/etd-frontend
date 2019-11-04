@@ -1,4 +1,7 @@
-<div class="alert alert-{{ type }} mb-4">
+<div class="alert alert-{{ type }} mb-4 fade show" *ngIf="show">
+  <button type="button" (click)="show = false" class="close" aria-label="Close">
+    &times;
+  </button>
   <strong class="d-block mb-2" *ngIf="title">{{ title }}</strong>
   <ul class="d-block mt-0 mb-0 list-unstyled">
     <li *ngFor="let item of message" class="mb-2">{{ item }}</li>

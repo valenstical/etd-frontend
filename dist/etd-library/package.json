@@ -1,0 +1,21 @@
+{
+  "name": "etd-library",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.1.3",
+    "@angular/core": "^8.1.3"
+  },
+  "main": "bundles/etd-library.umd.js",
+  "module": "fesm5/etd-library.js",
+  "es2015": "fesm2015/etd-library.js",
+  "esm5": "esm5/etd-library.js",
+  "esm2015": "esm2015/etd-library.js",
+  "fesm5": "fesm5/etd-library.js",
+  "fesm2015": "fesm2015/etd-library.js",
+  "typings": "etd-library.d.ts",
+  "metadata": "etd-library.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

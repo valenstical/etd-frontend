@@ -36,7 +36,7 @@ const routes: Routes = [
           )
       },
       {
-        path: "departments/:id",
+        path: "departments/edit/:id",
         pathMatch: "full",
         loadChildren: () =>
           import("./add-department/add-department.module").then(
@@ -44,7 +44,24 @@ const routes: Routes = [
           )
       },
       {
-        path: "documents/:id",
+        path: "documents/edit/:id",
+        pathMatch: "full",
+        loadChildren: () =>
+          import("./add-document/add-document.module").then(
+            m => m.AddDocumentModule
+          )
+      },
+
+      {
+        path: "departments/create",
+        pathMatch: "full",
+        loadChildren: () =>
+          import("./add-department/add-department.module").then(
+            m => m.AddDepartmentModule
+          )
+      },
+      {
+        path: "documents/create",
         pathMatch: "full",
         loadChildren: () =>
           import("./add-document/add-document.module").then(
