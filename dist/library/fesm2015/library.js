@@ -1,9 +1,10 @@
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, ViewChild, HostListener, Component, Input, NgModule } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, ViewChild, HostListener, Component, Input, NgModule, EventEmitter, Output } from '@angular/core';
 import { Subject, throwError, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * @fileoverview added by tsickle
@@ -824,6 +825,7 @@ if (false) {
 class AlertComponent {
     constructor() {
         this.type = "warning";
+        this.show = true;
     }
     /**
      * @return {?}
@@ -835,7 +837,7 @@ class AlertComponent {
 AlertComponent.decorators = [
     { type: Component, args: [{
                 selector: "lib-alert",
-                template: "<div class=\"alert alert-{{ type }} mb-4\">\n  <strong class=\"d-block mb-2\" *ngIf=\"title\">{{ title }}</strong>\n  <ul class=\"d-block mt-0 mb-0 list-unstyled\">\n    <li *ngFor=\"let item of message\" class=\"mb-2\">{{ item }}</li>\n  </ul>\n</div>\n"
+                template: "<div class=\"alert alert-{{ type }} mb-4 fade show\" *ngIf=\"show\">\n  <button type=\"button\" (click)=\"show = false\" class=\"close\" aria-label=\"Close\">\n    &times;\n  </button>\n  <strong class=\"d-block mb-2\" *ngIf=\"title\">{{ title }}</strong>\n  <ul class=\"d-block mt-0 mb-0 list-unstyled\">\n    <li *ngFor=\"let item of message\" class=\"mb-2\">{{ item }}</li>\n  </ul>\n</div>\n"
             }] }
 ];
 AlertComponent.propDecorators = {
@@ -850,6 +852,8 @@ if (false) {
     AlertComponent.prototype.title;
     /** @type {?} */
     AlertComponent.prototype.message;
+    /** @type {?} */
+    AlertComponent.prototype.show;
 }
 
 /**
@@ -870,11 +874,169 @@ AlertModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class SelectComponent {
+    constructor() {
+        this.disabled = false;
+        this.showLoader = false;
+        this.className = "";
+        this.onChange = new EventEmitter();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    handleChange(event) {
+        this.onChange.emit(event);
+    }
+}
+SelectComponent.decorators = [
+    { type: Component, args: [{
+                selector: "lib-select",
+                template: "<div class=\"form-group\">\n  <label for=\"{{ title }}\"\n    >{{ title }} <img *ngIf=\"showLoader && imgSrc\" [src]=\"imgSrc\" width=\"20\"\n  /></label>\n  <select\n    class=\"form-control custom-select {{ className }}\"\n    [formControl]=\"formGroup.controls[name]\"\n    [value]=\"formGroup.controls[name].value\"\n    (change)=\"handleChange(formGroup.controls[name].value)\"\n    [attr.disabled]=\"disabled || showLoader ? 'true' : null\"\n  >\n    <option value=\"\">-- Choose one --</option>\n    <option *ngFor=\"let item of data\" [value]=\"item[keyValue]\">\n      {{ item[keyText] }}</option\n    >\n  </select>\n  <span\n    class=\"error-text mt-1\"\n    *ngIf=\"formGroup.controls[name].invalid && formGroup.controls[name].dirty\"\n    >{{ invalidText }}</span\n  >\n</div>\n"
+            }] }
+];
+SelectComponent.propDecorators = {
+    name: [{ type: Input }],
+    title: [{ type: Input }],
+    data: [{ type: Input }],
+    keyValue: [{ type: Input }],
+    keyText: [{ type: Input }],
+    formGroup: [{ type: Input }],
+    invalidText: [{ type: Input }],
+    disabled: [{ type: Input }],
+    showLoader: [{ type: Input }],
+    imgSrc: [{ type: Input }],
+    className: [{ type: Input }],
+    onChange: [{ type: Output }]
+};
+if (false) {
+    /** @type {?} */
+    SelectComponent.prototype.name;
+    /** @type {?} */
+    SelectComponent.prototype.title;
+    /** @type {?} */
+    SelectComponent.prototype.data;
+    /** @type {?} */
+    SelectComponent.prototype.keyValue;
+    /** @type {?} */
+    SelectComponent.prototype.keyText;
+    /** @type {?} */
+    SelectComponent.prototype.formGroup;
+    /** @type {?} */
+    SelectComponent.prototype.invalidText;
+    /** @type {?} */
+    SelectComponent.prototype.disabled;
+    /** @type {?} */
+    SelectComponent.prototype.showLoader;
+    /** @type {?} */
+    SelectComponent.prototype.imgSrc;
+    /** @type {?} */
+    SelectComponent.prototype.className;
+    /** @type {?} */
+    SelectComponent.prototype.onChange;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class SelectModule {
+}
+SelectModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule, FormsModule, ReactiveFormsModule],
+                declarations: [SelectComponent],
+                exports: [SelectComponent]
+            },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class PageTransitionComponent extends BaseComponent {
+    /**
+     * @param {?} router
+     */
+    constructor(router) {
+        super();
+        this.router = router;
+        this.activeChange = new EventEmitter();
+        this.loading = false;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.addSubscription(this.router.events.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
+            if (event instanceof RouteConfigLoadStart) {
+                this.loading = true;
+            }
+            else if (event instanceof RouteConfigLoadEnd) {
+                this.loading = false;
+            }
+        })));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.clearSubscription();
+    }
+}
+PageTransitionComponent.decorators = [
+    { type: Component, args: [{
+                selector: "lib-page-transition",
+                template: "<div class=\"progress page-loader\" *ngIf=\"loading\">\n  <div\n    class=\"progress-bar bg-danger progress-bar-striped progress-bar-animated\"\n    style=\"width: 100%\"\n  ></div>\n</div>\n",
+                styles: [".page-loader{border-radius:0;height:5px;position:fixed;z-index:10000;top:0;left:0;right:0}"]
+            }] }
+];
+/** @nocollapse */
+PageTransitionComponent.ctorParameters = () => [
+    { type: Router }
+];
+PageTransitionComponent.propDecorators = {
+    activeChange: [{ type: Output }]
+};
+if (false) {
+    /** @type {?} */
+    PageTransitionComponent.prototype.activeChange;
+    /** @type {?} */
+    PageTransitionComponent.prototype.loading;
+    /**
+     * @type {?}
+     * @private
+     */
+    PageTransitionComponent.prototype.router;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class PageTransitionModule {
+}
+PageTransitionModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule],
+                declarations: [PageTransitionComponent],
+                exports: [PageTransitionComponent]
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AlertModule, AuthGuard, AuthService, BaseComponent, BaseDataComponent, CloudinaryWidget, Dropdown, HttpService, InterceptorService, PaystackWidget, ScriptLoaderService, ScriptStore, scrollIntoView, selectedFilter, AlertComponent as ɵb };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { AlertModule, AuthGuard, AuthService, BaseComponent, BaseDataComponent, CloudinaryWidget, Dropdown, HttpService, InterceptorService, PageTransitionModule, PaystackWidget, ScriptLoaderService, ScriptStore, SelectModule, scrollIntoView, selectedFilter, AlertComponent as ɵb, SelectComponent as ɵc, PageTransitionComponent as ɵd };
 //# sourceMappingURL=library.js.map

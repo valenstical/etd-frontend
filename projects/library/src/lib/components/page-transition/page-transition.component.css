@@ -1,0 +1,9 @@
+.page-loader {
+  border-radius: 0px;
+  height: 5px;
+  position: fixed;
+  z-index: 10000;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}

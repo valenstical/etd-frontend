@@ -1,13 +1,23 @@
 <div class="form-group ">
   <label [for]="name">{{ title }}</label>
-  <input
-    [type]="type"
-    class="form-control"
-    [formControl]="formGroup.controls[name]"
-    [autocomplete]="autocomplete"
-    [id]="name"
-    [value]="formGroup.controls[name].value"
-  />
+  <ng-container *ngIf="isInput; else textarea">
+    <input
+      [type]="type"
+      class="form-control {{ className }}"
+      [formControl]="formGroup.controls[name]"
+      [autocomplete]="autocomplete"
+      [id]="name"
+      [value]="formGroup.controls[name].value"
+  /></ng-container>
+  <ng-template #textarea>
+    <textarea
+      class="form-control textarea-lg {{ className }}"
+      [formControl]="formGroup.controls[name]"
+      [id]="name"
+      >{{ formGroup.controls[name].value }}</textarea
+    >
+  </ng-template>
+
   <span
     class="error-text mt-1"
     *ngIf="formGroup.controls[name].invalid && formGroup.controls[name].dirty"

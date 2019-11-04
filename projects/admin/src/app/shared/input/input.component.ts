@@ -12,4 +12,6 @@ export class InputComponent {
   @Input() autocomplete: string = "off";
   @Input() invalidText: string = "";
   @Input() formGroup: FormGroup;
+  @Input() isInput: boolean = true;
+  @Input() className: string = "";
 }

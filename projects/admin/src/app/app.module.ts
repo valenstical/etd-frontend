@@ -1,12 +1,14 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { ProtectedComponent } from "./protected/protected.component";
+import { InterceptorService } from "etd-library";
+import { PageTransitionModule } from "library";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,19 @@ import { ProtectedComponent } from "./protected/protected.component";
     NavigationComponent,
     ProtectedComponent
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
-  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    PageTransitionModule
+  ],
+  bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ]
 })
 export class AppModule {}

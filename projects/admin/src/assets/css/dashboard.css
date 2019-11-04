@@ -22,6 +22,14 @@ body {
   cursor: pointer;
 }
 
+.modal-backdrop {
+  pointer-events: auto;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .bg-grey {
   background-color: #f5f6f7;
 }
@@ -166,6 +174,10 @@ body {
   transform: translateY(-2px);
 }
 
+.z-index-lg {
+  z-index: 100000;
+}
+
 .header {
   color: #505050;
   padding-top: 20px;
@@ -176,7 +188,7 @@ body {
   left: 0px;
   right: 0px;
   top: 0px;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.01);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.08);
 }
 
 .text-md {
@@ -329,6 +341,10 @@ btn-curved {
   font-weight: bolder;
   font-size: 15px;
   color: #555765;
+}
+
+.min-vh-60 {
+  min-height: 60vh;
 }
 
 .form-section-heading p {

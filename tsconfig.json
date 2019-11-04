@@ -30,6 +30,12 @@
       ],
       "library/*": [
         "dist/library/*"
+      ],
+      "etd-library": [
+        "dist/etd-library"
+      ],
+      "etd-library/*": [
+        "dist/etd-library/*"
       ]
     }
   },

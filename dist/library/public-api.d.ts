@@ -11,3 +11,5 @@ export * from "./lib/helpers/base-component";
 export * from "./lib/helpers/base-data-component";
 export * from "./lib/helpers/dropdown";
 export * from "./lib/components/alert/alert.module";
+export * from "./lib/components/select/select.module";
+export * from "./lib/components/page-transition/page-transition.module";

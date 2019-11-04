@@ -3699,6 +3699,7 @@ input[type=submit].btn-block {
     width: auto;
 }
 
+
 .btn-group>.btn-group:not(:first-child),
 .btn-group>.btn:not(:first-child) {
     margin-left: -1px;
@@ -11122,4 +11123,8 @@ a.text-dark:hover {
         color: inherit;
         border-color: #dee2e6;
     }
+}
+
+.text-sentence::first-letter{
+    text-transform: uppercase;
 }

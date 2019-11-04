@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/router'), require('@angular/common/http'), require('rxjs/operators'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('library', ['exports', '@angular/core', 'rxjs', '@angular/router', '@angular/common/http', 'rxjs/operators', '@angular/common'], factory) :
-    (global = global || self, factory(global.library = {}, global.ng.core, global.rxjs, global.ng.router, global.ng.common.http, global.rxjs.operators, global.ng.common));
-}(this, function (exports, core, rxjs, router, http, operators, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/router'), require('@angular/common/http'), require('rxjs/operators'), require('@angular/common'), require('@angular/forms')) :
+    typeof define === 'function' && define.amd ? define('library', ['exports', '@angular/core', 'rxjs', '@angular/router', '@angular/common/http', 'rxjs/operators', '@angular/common', '@angular/forms'], factory) :
+    (global = global || self, factory(global.library = {}, global.ng.core, global.rxjs, global.ng.router, global.ng.common.http, global.rxjs.operators, global.ng.common, global.ng.forms));
+}(this, function (exports, core, rxjs, router, http, operators, common, forms) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1174,6 +1174,7 @@
     var AlertComponent = /** @class */ (function () {
         function AlertComponent() {
             this.type = "warning";
+            this.show = true;
         }
         /**
          * @return {?}
@@ -1187,7 +1188,7 @@
         AlertComponent.decorators = [
             { type: core.Component, args: [{
                         selector: "lib-alert",
-                        template: "<div class=\"alert alert-{{ type }} mb-4\">\n  <strong class=\"d-block mb-2\" *ngIf=\"title\">{{ title }}</strong>\n  <ul class=\"d-block mt-0 mb-0 list-unstyled\">\n    <li *ngFor=\"let item of message\" class=\"mb-2\">{{ item }}</li>\n  </ul>\n</div>\n"
+                        template: "<div class=\"alert alert-{{ type }} mb-4 fade show\" *ngIf=\"show\">\n  <button type=\"button\" (click)=\"show = false\" class=\"close\" aria-label=\"Close\">\n    &times;\n  </button>\n  <strong class=\"d-block mb-2\" *ngIf=\"title\">{{ title }}</strong>\n  <ul class=\"d-block mt-0 mb-0 list-unstyled\">\n    <li *ngFor=\"let item of message\" class=\"mb-2\">{{ item }}</li>\n  </ul>\n</div>\n"
                     }] }
         ];
         AlertComponent.propDecorators = {
@@ -1204,6 +1205,8 @@
         AlertComponent.prototype.title;
         /** @type {?} */
         AlertComponent.prototype.message;
+        /** @type {?} */
+        AlertComponent.prototype.show;
     }
 
     /**
@@ -1223,6 +1226,182 @@
         return AlertModule;
     }());
 
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var SelectComponent = /** @class */ (function () {
+        function SelectComponent() {
+            this.disabled = false;
+            this.showLoader = false;
+            this.className = "";
+            this.onChange = new core.EventEmitter();
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SelectComponent.prototype.handleChange = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.onChange.emit(event);
+        };
+        SelectComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: "lib-select",
+                        template: "<div class=\"form-group\">\n  <label for=\"{{ title }}\"\n    >{{ title }} <img *ngIf=\"showLoader && imgSrc\" [src]=\"imgSrc\" width=\"20\"\n  /></label>\n  <select\n    class=\"form-control custom-select {{ className }}\"\n    [formControl]=\"formGroup.controls[name]\"\n    [value]=\"formGroup.controls[name].value\"\n    (change)=\"handleChange(formGroup.controls[name].value)\"\n    [attr.disabled]=\"disabled || showLoader ? 'true' : null\"\n  >\n    <option value=\"\">-- Choose one --</option>\n    <option *ngFor=\"let item of data\" [value]=\"item[keyValue]\">\n      {{ item[keyText] }}</option\n    >\n  </select>\n  <span\n    class=\"error-text mt-1\"\n    *ngIf=\"formGroup.controls[name].invalid && formGroup.controls[name].dirty\"\n    >{{ invalidText }}</span\n  >\n</div>\n"
+                    }] }
+        ];
+        SelectComponent.propDecorators = {
+            name: [{ type: core.Input }],
+            title: [{ type: core.Input }],
+            data: [{ type: core.Input }],
+            keyValue: [{ type: core.Input }],
+            keyText: [{ type: core.Input }],
+            formGroup: [{ type: core.Input }],
+            invalidText: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            showLoader: [{ type: core.Input }],
+            imgSrc: [{ type: core.Input }],
+            className: [{ type: core.Input }],
+            onChange: [{ type: core.Output }]
+        };
+        return SelectComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        SelectComponent.prototype.name;
+        /** @type {?} */
+        SelectComponent.prototype.title;
+        /** @type {?} */
+        SelectComponent.prototype.data;
+        /** @type {?} */
+        SelectComponent.prototype.keyValue;
+        /** @type {?} */
+        SelectComponent.prototype.keyText;
+        /** @type {?} */
+        SelectComponent.prototype.formGroup;
+        /** @type {?} */
+        SelectComponent.prototype.invalidText;
+        /** @type {?} */
+        SelectComponent.prototype.disabled;
+        /** @type {?} */
+        SelectComponent.prototype.showLoader;
+        /** @type {?} */
+        SelectComponent.prototype.imgSrc;
+        /** @type {?} */
+        SelectComponent.prototype.className;
+        /** @type {?} */
+        SelectComponent.prototype.onChange;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var SelectModule = /** @class */ (function () {
+        function SelectModule() {
+        }
+        SelectModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [common.CommonModule, forms.FormsModule, forms.ReactiveFormsModule],
+                        declarations: [SelectComponent],
+                        exports: [SelectComponent]
+                    },] }
+        ];
+        return SelectModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var PageTransitionComponent = /** @class */ (function (_super) {
+        __extends(PageTransitionComponent, _super);
+        function PageTransitionComponent(router) {
+            var _this = _super.call(this) || this;
+            _this.router = router;
+            _this.activeChange = new core.EventEmitter();
+            _this.loading = false;
+            return _this;
+        }
+        /**
+         * @return {?}
+         */
+        PageTransitionComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.addSubscription(this.router.events.subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
+                if (event instanceof router.RouteConfigLoadStart) {
+                    _this.loading = true;
+                }
+                else if (event instanceof router.RouteConfigLoadEnd) {
+                    _this.loading = false;
+                }
+            })));
+        };
+        /**
+         * @return {?}
+         */
+        PageTransitionComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+        function () {
+            this.clearSubscription();
+        };
+        PageTransitionComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: "lib-page-transition",
+                        template: "<div class=\"progress page-loader\" *ngIf=\"loading\">\n  <div\n    class=\"progress-bar bg-danger progress-bar-striped progress-bar-animated\"\n    style=\"width: 100%\"\n  ></div>\n</div>\n",
+                        styles: [".page-loader{border-radius:0;height:5px;position:fixed;z-index:10000;top:0;left:0;right:0}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        PageTransitionComponent.ctorParameters = function () { return [
+            { type: router.Router }
+        ]; };
+        PageTransitionComponent.propDecorators = {
+            activeChange: [{ type: core.Output }]
+        };
+        return PageTransitionComponent;
+    }(BaseComponent));
+    if (false) {
+        /** @type {?} */
+        PageTransitionComponent.prototype.activeChange;
+        /** @type {?} */
+        PageTransitionComponent.prototype.loading;
+        /**
+         * @type {?}
+         * @private
+         */
+        PageTransitionComponent.prototype.router;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var PageTransitionModule = /** @class */ (function () {
+        function PageTransitionModule() {
+        }
+        PageTransitionModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [common.CommonModule],
+                        declarations: [PageTransitionComponent],
+                        exports: [PageTransitionComponent]
+                    },] }
+        ];
+        return PageTransitionModule;
+    }());
+
     exports.AlertModule = AlertModule;
     exports.AuthGuard = AuthGuard;
     exports.AuthService = AuthService;
@@ -1232,12 +1411,16 @@
     exports.Dropdown = Dropdown;
     exports.HttpService = HttpService;
     exports.InterceptorService = InterceptorService;
+    exports.PageTransitionModule = PageTransitionModule;
     exports.PaystackWidget = PaystackWidget;
     exports.ScriptLoaderService = ScriptLoaderService;
     exports.ScriptStore = ScriptStore;
+    exports.SelectModule = SelectModule;
     exports.scrollIntoView = scrollIntoView;
     exports.selectedFilter = selectedFilter;
     exports.ɵb = AlertComponent;
+    exports.ɵc = SelectComponent;
+    exports.ɵd = PageTransitionComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

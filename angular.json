@@ -31,12 +31,6 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/v1/src/environments/environment.ts",
-                  "with": "projects/v1/src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -144,12 +138,6 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/admin/src/environments/environment.ts",
-                  "with": "projects/admin/src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -222,6 +210,39 @@
             "production": {
               "devServerTarget": "admin:serve:production"
             }
+          }
+        }
+      }
+    },
+    "etd-library": {
+      "projectType": "library",
+      "root": "projects/etd-library",
+      "sourceRoot": "projects/etd-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/etd-library/tsconfig.lib.json",
+            "project": "projects/etd-library/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/etd-library/src/test.ts",
+            "tsConfig": "projects/etd-library/tsconfig.spec.json",
+            "karmaConfig": "projects/etd-library/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/etd-library/tsconfig.lib.json",
+              "projects/etd-library/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

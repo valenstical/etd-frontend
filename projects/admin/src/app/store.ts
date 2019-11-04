@@ -1,4 +1,8 @@
 export const initialState = {
   title: "Documents",
-  menuShown: false
+  menuShown: false,
+  showBackButton: false,
+  department: null,
+  document: null,
+  collegeId: null
 };
